@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ishaandwivedi1234/nodeJs#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "joi": "^13.1.0"
   }
 }
