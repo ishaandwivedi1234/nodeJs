@@ -1,25 +1,18 @@
-// http:// vidly.com/api/generes
-
 const express = require("express");
-const app = express();
+const router = express.Router();
 const Joi = require("joi");
-// Read The Generes
-app.use(express.json());
-
-// Local Database
-
 const genres = [
   { id: 1, name: "horror" },
-  { id: 2, name: "comedy" },
+  { id: 2, name: "glukamole" },
   { id: 3, name: "thriller" },
 ];
 
 // GET API For genres
-app.get("/api/genres", (req, res) => {
+router.get("/", (req, res) => {
   res.send(genres);
 });
 
-app.get("/api/genres/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   // check if id exists
   const genres_res = genres.find((g) => g.id === parseInt(req.params.id));
   if (!genres_res) {
@@ -29,7 +22,7 @@ app.get("/api/genres/:id", (req, res) => {
 });
 
 // POST API for genres
-app.post("/api/genres/", (req, res) => {
+router.post("/", (req, res) => {
   const schema = {
     name: Joi.string().required(),
   };
@@ -42,7 +35,7 @@ app.post("/api/genres/", (req, res) => {
 
 // PUT API for updating
 
-app.put("/api/genres/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   //  validate
 
   const isValid = genres.find((g) => g.id === parseInt(req.params.id));
@@ -65,12 +58,9 @@ app.put("/api/genres/:id", (req, res) => {
   }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listining to port ${port}`));
-
 // DELETE API
 
-app.delete("/api/genres/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   // check id it exists
   const _genres = genres.find((g) => g.id == parseInt(req.params.id));
   if (!_genres) {
@@ -81,3 +71,5 @@ app.delete("/api/genres/:id", (req, res) => {
     res.send(_genres);
   }
 });
+
+module.exports = router;
